@@ -10,9 +10,19 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse incoming JSON payloads
 app.use(morgan('dev')); // Log HTTP requests to the console
+
+// CORS Configuration
+app.use(
+  cors({
+    origin: [
+      "https://your-netlify-domain.netlify.app", // Replace with your actual Netlify domain
+      "http://localhost:3000", // For local development (if needed)
+    ],
+    credentials: true, // Allow credentials (cookies, etc.)
+  })
+);
 
 // API Routes
 app.use('/api/auth', require('./routes/auth')); // Authentication routes
